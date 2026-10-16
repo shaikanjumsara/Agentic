@@ -349,6 +349,37 @@ input:focus-visible {
   font-weight: 600;
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.install-button {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 13px;
+  border: 1px solid #cbd7cc;
+  border-radius: 3px;
+  background: var(--deep);
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.install-button:hover {
+  background: #26594e;
+}
+
+.install-button span {
+  color: var(--citrus);
+  font-size: 16px;
+  line-height: 1;
+}
+
 .today-button:hover {
   border-color: var(--green);
   background: var(--green-soft);
@@ -1110,6 +1141,18 @@ input:focus-visible {
 
   .todo-heading-row h1 {
     font-size: 50px;
+  }
+
+  .topbar-actions {
+    gap: 6px;
+  }
+
+  .install-button,
+  .today-button {
+    min-height: 35px;
+    gap: 5px;
+    padding: 0 9px;
+    font-size: 11px;
   }
 
   .month-summary {
