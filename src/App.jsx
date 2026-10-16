@@ -95,6 +95,8 @@ function TodoPage({ todos, onAddTodo, onToggleTodo, onDeleteTodo, onLogout }) {
   const [newTodo, setNewTodo] = useState('')
   const [filter, setFilter] = useState('All')
   const remainingCount = todos.filter((todo) => !todo.completed).length
+  const completedCount = todos.length - remainingCount
+  const progressPercent = todos.length ? Math.round((completedCount / todos.length) * 100) : 0
   const visibleTodos = todos.filter((todo) => {
     if (filter === 'Active') return !todo.completed
     if (filter === 'Completed') return todo.completed
@@ -135,6 +137,8 @@ function TodoPage({ todos, onAddTodo, onToggleTodo, onDeleteTodo, onLogout }) {
           </div>
         </div>
 
+        <div className="todo-workspace">
+          <div className="todo-primary">
         <form className="add-form" onSubmit={handleAddTodo}>
           <label className="visually-hidden" htmlFor="new-todo">Add a task</label>
           <input
@@ -200,8 +204,37 @@ function TodoPage({ todos, onAddTodo, onToggleTodo, onDeleteTodo, onLogout }) {
 
         <footer className="todo-footer">
           <span>Keep it simple. Keep it moving.</span>
-          {todos.some((todo) => todo.completed) && <span>{todos.filter((todo) => todo.completed).length} completed</span>}
+          {completedCount > 0 && <span>{completedCount} completed</span>}
         </footer>
+          </div>
+
+          <aside className="progress-panel" aria-label="Daily progress">
+            <div className="progress-panel-heading">
+              <span className="progress-spark" aria-hidden="true">✳</span>
+              <p>DAILY PACE</p>
+            </div>
+            <div
+              className="progress-ring"
+              role="img"
+              aria-label={`${progressPercent}% of tasks complete`}
+              style={{ '--progress': `${progressPercent}%` }}
+            >
+              <div className="progress-ring-center">
+                <strong>{progressPercent}<span>%</span></strong>
+                <span>complete</span>
+              </div>
+            </div>
+            <div className="progress-panel-stats">
+              <span><strong>{completedCount}</strong> done</span>
+              <span><strong>{remainingCount}</strong> left</span>
+            </div>
+            <div className="progress-panel-note">
+              <span className="note-rule" aria-hidden="true" />
+              <p>Small steps add up.</p>
+              <span>Make today your own.</span>
+            </div>
+          </aside>
+        </div>
       </section>
     </main>
   )
