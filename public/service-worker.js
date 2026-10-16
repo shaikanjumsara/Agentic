@@ -1,27 +1,28 @@
-const CACHE_NAME = 'daymark-shell-v1'
+const CACHE_NAME = 'daymark-shell-v2'
 const BASE_PATH = '/Agentic/'
+const APP_ENTRY = `${BASE_PATH}?pwa-shell=2`
 const APP_SHELL = [
-  BASE_PATH,
+  APP_ENTRY,
   `${BASE_PATH}site.webmanifest`,
   `${BASE_PATH}daymark-icon.svg`,
 ]
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
+  event.waitUntil(Promise.all([
     caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)),
-  )
-  self.skipWaiting()
+    self.skipWaiting(),
+  ]))
 })
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
+  event.waitUntil(Promise.all([
     caches.keys().then((cacheNames) => Promise.all(
       cacheNames
         .filter((cacheName) => cacheName.startsWith('daymark-') && cacheName !== CACHE_NAME)
         .map((cacheName) => caches.delete(cacheName)),
     )),
-  )
-  self.clients.claim()
+    self.clients.claim(),
+  ]))
 })
 
 self.addEventListener('fetch', (event) => {
@@ -37,11 +38,11 @@ self.addEventListener('fetch', (event) => {
         .then((response) => {
           if (response.ok) {
             const responseCopy = response.clone()
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, responseCopy))
+            event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put(request, responseCopy)))
           }
           return response
         })
-        .catch(async () => (await caches.match(request)) ?? caches.match(BASE_PATH)),
+        .catch(async () => (await caches.match(request)) ?? caches.match(APP_ENTRY)),
     )
     return
   }
@@ -52,7 +53,7 @@ self.addEventListener('fetch', (event) => {
       return fetch(request).then((response) => {
         if (response.ok) {
           const responseCopy = response.clone()
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, responseCopy))
+          event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put(request, responseCopy)))
         }
         return response
       })
