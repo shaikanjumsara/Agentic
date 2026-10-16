@@ -5,6 +5,8 @@ const APP_SHELL = [
   APP_ENTRY,
   `${BASE_PATH}site.webmanifest`,
   `${BASE_PATH}daymark-icon.svg`,
+  `${BASE_PATH}daymark-icon-192.png`,
+  `${BASE_PATH}daymark-icon-512.png`,
 ]
 
 self.addEventListener('install', (event) => {
