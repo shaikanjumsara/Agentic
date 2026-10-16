@@ -49,7 +49,7 @@ function getCalendarDates(month) {
   ))
 }
 
-function TodoPage({ todosByDate, selectedDate, visibleMonth, onSelectDate, onChangeMonth, onAddTodo, onToggleTodo, onDeleteTodo, onGoToToday, canInstall, onInstall }) {
+function TodoPage({ todosByDate, selectedDate, visibleMonth, onSelectDate, onChangeMonth, onAddTodo, onToggleTodo, onDeleteTodo, onGoToToday, showInstallHelp, onInstall, onCloseInstallHelp }) {
   const [newTodo, setNewTodo] = useState('')
   const [filter, setFilter] = useState('All')
   const todayKey = getDateKey(new Date())
@@ -94,11 +94,18 @@ function TodoPage({ todosByDate, selectedDate, visibleMonth, onSelectDate, onCha
           <span>daymark</span>
         </a>
         <div className="topbar-actions">
-          {canInstall && (
+          <div className="install-control">
             <button className="install-button" type="button" onClick={onInstall}>
               <span aria-hidden="true">↓</span> Install app
             </button>
-          )}
+            {showInstallHelp && (
+              <div className="install-help" role="dialog" aria-label="Install Daymark">
+                <button className="install-help-close" type="button" aria-label="Close install instructions" onClick={onCloseInstallHelp}>×</button>
+                <strong>Add Daymark to your device</strong>
+                <p>Open your browser menu and choose “Install app” or “Add to Home Screen”.</p>
+              </div>
+            )}
+          </div>
           <button className="today-button" type="button" onClick={onGoToToday}>Today <span aria-hidden="true">↗</span></button>
         </div>
       </header>
@@ -257,6 +264,7 @@ function TodoPage({ todosByDate, selectedDate, visibleMonth, onSelectDate, onCha
 export default function App() {
   const [todosByDate, setTodosByDate] = useState(readTodosByDate)
   const [installPrompt, setInstallPrompt] = useState(null)
+  const [showInstallHelp, setShowInstallHelp] = useState(false)
   const [selectedDate, setSelectedDate] = useState(() => getDateKey(new Date()))
   const [visibleMonth, setVisibleMonth] = useState(() => {
     const today = new Date()
@@ -279,6 +287,7 @@ export default function App() {
 
     function handleAppInstalled() {
       setInstallPrompt(null)
+      setShowInstallHelp(false)
     }
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
@@ -306,7 +315,11 @@ export default function App() {
   }
 
   async function handleInstall() {
-    if (!installPrompt) return
+    if (!installPrompt) {
+      setShowInstallHelp(true)
+      return
+    }
+    setShowInstallHelp(false)
     await installPrompt.prompt()
     await installPrompt.userChoice
     setInstallPrompt(null)
@@ -350,8 +363,9 @@ export default function App() {
       onToggleTodo={handleToggleTodo}
       onDeleteTodo={handleDeleteTodo}
       onGoToToday={handleGoToToday}
-      canInstall={Boolean(installPrompt)}
+      showInstallHelp={showInstallHelp}
       onInstall={handleInstall}
+      onCloseInstallHelp={() => setShowInstallHelp(false)}
     />
   )
 }
