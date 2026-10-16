@@ -49,7 +49,7 @@ function getCalendarDates(month) {
   ))
 }
 
-function TodoPage({ todosByDate, selectedDate, visibleMonth, onSelectDate, onChangeMonth, onAddTodo, onToggleTodo, onDeleteTodo, onGoToToday }) {
+function TodoPage({ todosByDate, selectedDate, visibleMonth, onSelectDate, onChangeMonth, onAddTodo, onToggleTodo, onDeleteTodo, onGoToToday, canInstall, onInstall }) {
   const [newTodo, setNewTodo] = useState('')
   const [filter, setFilter] = useState('All')
   const todayKey = getDateKey(new Date())
@@ -93,7 +93,14 @@ function TodoPage({ todosByDate, selectedDate, visibleMonth, onSelectDate, onCha
           <span className="brand-mark" aria-hidden="true">d.</span>
           <span>daymark</span>
         </a>
-        <button className="today-button" type="button" onClick={onGoToToday}>Today <span aria-hidden="true">↗</span></button>
+        <div className="topbar-actions">
+          {canInstall && (
+            <button className="install-button" type="button" onClick={onInstall}>
+              <span aria-hidden="true">↓</span> Install app
+            </button>
+          )}
+          <button className="today-button" type="button" onClick={onGoToToday}>Today <span aria-hidden="true">↗</span></button>
+        </div>
       </header>
 
       <section className="todo-content" id="planner" aria-labelledby="todo-heading">
@@ -249,6 +256,7 @@ function TodoPage({ todosByDate, selectedDate, visibleMonth, onSelectDate, onCha
 
 export default function App() {
   const [todosByDate, setTodosByDate] = useState(readTodosByDate)
+  const [installPrompt, setInstallPrompt] = useState(null)
   const [selectedDate, setSelectedDate] = useState(() => getDateKey(new Date()))
   const [visibleMonth, setVisibleMonth] = useState(() => {
     const today = new Date()
@@ -262,6 +270,24 @@ export default function App() {
       // Keep the planner usable for this session if browser storage is unavailable.
     }
   }, [todosByDate])
+
+  useEffect(() => {
+    function handleBeforeInstallPrompt(event) {
+      event.preventDefault()
+      setInstallPrompt(event)
+    }
+
+    function handleAppInstalled() {
+      setInstallPrompt(null)
+    }
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+    window.addEventListener('appinstalled', handleAppInstalled)
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+      window.removeEventListener('appinstalled', handleAppInstalled)
+    }
+  }, [])
 
   function handleSelectDate(date) {
     setSelectedDate(getDateKey(date))
@@ -277,6 +303,13 @@ export default function App() {
     const today = new Date()
     setSelectedDate(getDateKey(today))
     setVisibleMonth(new Date(today.getFullYear(), today.getMonth(), 1))
+  }
+
+  async function handleInstall() {
+    if (!installPrompt) return
+    await installPrompt.prompt()
+    await installPrompt.userChoice
+    setInstallPrompt(null)
   }
 
   function handleAddTodo(dateKey, title) {
@@ -317,6 +350,8 @@ export default function App() {
       onToggleTodo={handleToggleTodo}
       onDeleteTodo={handleDeleteTodo}
       onGoToToday={handleGoToToday}
+      canInstall={Boolean(installPrompt)}
+      onInstall={handleInstall}
     />
   )
 }
