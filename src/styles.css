@@ -2,22 +2,24 @@
 
 :root {
   font-family: 'DM Sans', 'Segoe UI', sans-serif;
-  color: #27332c;
-  background: #f4f5ee;
+  color: #1b302d;
+  background: #edf1e9;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-optical-sizing: auto;
   font-weight: 400;
-  --ink: #27332c;
-  --muted: #788078;
-  --green: #426b51;
-  --green-dark: #33563f;
-  --green-soft: #e5ece2;
+  --ink: #1b302d;
+  --muted: #727e77;
+  --green: #25695b;
+  --green-dark: #194c42;
+  --green-soft: #e2ecda;
   --paper: #fbfcf8;
-  --line: #e4e8df;
-  --coral: #c5745e;
+  --line: #dce4da;
+  --coral: #e2684d;
+  --citrus: #e5ed79;
+  --deep: #173b35;
   --display: 'Newsreader', Georgia, serif;
 }
 
@@ -29,9 +31,9 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  background-color: #f4f5ee;
-  background-image: radial-gradient(#dfe5db 0.7px, transparent 0.7px);
-  background-size: 19px 19px;
+  background-color: #edf1e9;
+  background-image: radial-gradient(#d7dfd4 0.65px, transparent 0.65px);
+  background-size: 22px 22px;
 }
 
 button,
@@ -71,11 +73,11 @@ input:focus-visible {
 
 .brand-mark {
   display: grid;
-  width: 31px;
-  height: 31px;
+  width: 36px;
+  height: 36px;
   place-items: center;
   border-radius: 50%;
-  background: var(--green);
+  background: var(--deep);
   color: white;
   font-family: var(--display);
   font-size: 19px;
@@ -85,11 +87,11 @@ input:focus-visible {
 
 .login-layout {
   display: grid;
-  width: min(100%, 1000px);
+  width: min(100%, 1120px);
   flex: 1;
-  grid-template-columns: 1fr 410px;
+  grid-template-columns: 1fr 430px;
   align-items: center;
-  gap: clamp(56px, 10vw, 145px);
+  gap: clamp(56px, 10vw, 160px);
   margin: 0 auto;
   padding: 40px 0 60px;
 }
@@ -110,7 +112,7 @@ input:focus-visible {
 .login-intro h1 {
   margin: 20px 0 15px;
   font-family: var(--display);
-  font-size: clamp(56px, 6.3vw, 80px);
+  font-size: clamp(58px, 7.2vw, 92px);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 0.98;
@@ -153,11 +155,11 @@ input:focus-visible {
 }
 
 .login-panel {
-  padding: 35px 34px 27px;
-  border: 1px solid #e7eae2;
-  border-radius: 7px;
+  padding: 40px 38px 30px;
+  border: 1px solid #dce4da;
+  border-radius: 5px;
   background: var(--paper);
-  box-shadow: 0 15px 44px rgb(49 64 47 / 6%);
+  box-shadow: 0 20px 54px rgb(30 60 47 / 9%);
 }
 
 .panel-heading h2 {
@@ -232,7 +234,7 @@ input:focus-visible {
   gap: 9px;
   border: 0;
   border-radius: 4px;
-  background: var(--green);
+  background: var(--coral);
   color: #fff;
   cursor: pointer;
   font-size: 13px;
@@ -242,7 +244,7 @@ input:focus-visible {
 
 .primary-button:hover {
   transform: translateY(-1px);
-  background: var(--green-dark);
+  background: #c6503b;
 }
 
 .login-button {
@@ -289,15 +291,15 @@ input:focus-visible {
 
 .todo-shell {
   min-height: 100vh;
-  padding: 0 max(6vw, 20px) 50px;
+  padding: 0 max(5vw, 20px) 60px;
 }
 
 .topbar {
   display: flex;
-  min-height: 76px;
+  min-height: 82px;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgb(201 210 197 / 65%);
+  border-bottom: 1px solid #d5ded4;
 }
 
 .account-actions {
@@ -314,8 +316,8 @@ input:focus-visible {
 .logout-button {
   min-height: 34px;
   padding: 0 13px;
-  border: 1px solid #d9dfd5;
-  border-radius: 4px;
+  border: 1px solid #cbd7cc;
+  border-radius: 3px;
   background: rgb(251 252 248 / 65%);
   cursor: pointer;
   font-size: 12px;
@@ -328,8 +330,8 @@ input:focus-visible {
 }
 
 .todo-content {
-  width: min(100%, 680px);
-  margin: 77px auto 0;
+  width: min(100%, 1120px);
+  margin: 64px auto 0;
 }
 
 .date-label {
@@ -342,13 +344,13 @@ input:focus-visible {
   align-items: flex-end;
   justify-content: space-between;
   gap: 18px;
-  margin: 10px 0 27px;
+  margin: 12px 0 34px;
 }
 
 .todo-heading-row h1 {
   margin: 0;
   font-family: var(--display);
-  font-size: 58px;
+  font-size: 68px;
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.05;
@@ -388,11 +390,11 @@ input:focus-visible {
 .add-form {
   display: flex;
   gap: 9px;
-  padding: 6px;
-  border: 1px solid #dfe4da;
-  border-radius: 6px;
+  padding: 7px;
+  border: 1px solid #cbd8cd;
+  border-radius: 4px;
   background: var(--paper);
-  box-shadow: 0 5px 16px rgb(49 64 47 / 4%);
+  box-shadow: 0 12px 28px rgb(32 55 43 / 6%);
 }
 
 .add-form input {
@@ -411,7 +413,12 @@ input:focus-visible {
 .add-button {
   min-width: 110px;
   padding: 0 13px;
+  background: var(--deep);
   white-space: nowrap;
+}
+
+.add-button:hover {
+  background: #26594e;
 }
 
 .add-button span {
@@ -453,7 +460,7 @@ input:focus-visible {
 }
 
 .filter-button.is-selected {
-  background: var(--green-soft);
+  background: var(--citrus);
   color: var(--green-dark);
   font-weight: 600;
 }
@@ -471,7 +478,7 @@ input:focus-visible {
 
 .todo-item {
   display: flex;
-  min-height: 61px;
+  min-height: 66px;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -526,6 +533,143 @@ input:focus-visible {
   line-height: 1;
   opacity: 0.65;
   transition: background 150ms ease, color 150ms ease, opacity 150ms ease;
+}
+
+.todo-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  align-items: start;
+  gap: clamp(28px, 5vw, 62px);
+}
+
+.todo-primary {
+  min-width: 0;
+}
+
+.progress-panel {
+  position: relative;
+  overflow: hidden;
+  padding: 24px 22px 22px;
+  background: var(--deep);
+  color: #f5f5e9;
+}
+
+.progress-panel::after {
+  position: absolute;
+  right: -40px;
+  bottom: -54px;
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgb(229 237 121 / 22%);
+  border-radius: 50%;
+  content: '';
+  pointer-events: none;
+}
+
+.progress-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.progress-panel-heading p {
+  margin: 0;
+  color: #c6d1bb;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.progress-spark {
+  color: var(--citrus);
+  font-size: 18px;
+}
+
+.progress-ring {
+  position: relative;
+  display: grid;
+  width: 148px;
+  aspect-ratio: 1;
+  place-items: center;
+  margin: 25px auto 22px;
+  border-radius: 50%;
+  background: conic-gradient(var(--citrus) var(--progress), #35574e var(--progress));
+}
+
+.progress-ring::before {
+  position: absolute;
+  inset: 9px;
+  border-radius: 50%;
+  background: var(--deep);
+  content: '';
+}
+
+.progress-ring-center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress-ring-center strong {
+  font-family: var(--display);
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.progress-ring-center strong span {
+  color: var(--citrus);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+}
+
+.progress-ring-center > span {
+  margin-top: 5px;
+  color: #c6d1bb;
+  font-size: 11px;
+}
+
+.progress-panel-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid rgb(225 235 215 / 22%);
+  border-bottom: 1px solid rgb(225 235 215 / 22%);
+  color: #c6d1bb;
+  font-size: 11px;
+}
+
+.progress-panel-stats strong {
+  margin-right: 3px;
+  color: #fff;
+  font-size: 13px;
+}
+
+.progress-panel-note {
+  position: relative;
+  z-index: 1;
+  padding-top: 17px;
+}
+
+.note-rule {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background: var(--coral);
+}
+
+.progress-panel-note p {
+  margin: 12px 0 4px;
+  font-family: var(--display);
+  font-size: 21px;
+}
+
+.progress-panel-note > span:last-child {
+  color: #c6d1bb;
+  font-size: 11px;
 }
 
 .delete-button:hover {
@@ -614,6 +758,40 @@ input:focus-visible {
     padding: 0 20px 36px;
   }
 
+  .todo-workspace {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .progress-panel {
+    display: grid;
+    grid-template-columns: 1fr 132px;
+    align-items: center;
+    gap: 0 16px;
+    padding: 20px;
+  }
+
+  .progress-panel-heading,
+  .progress-panel-stats,
+  .progress-panel-note {
+    grid-column: 1;
+  }
+
+  .progress-ring {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    width: 126px;
+    margin: 0 auto;
+  }
+
+  .progress-panel-stats {
+    margin-top: 14px;
+  }
+
+  .progress-panel-note {
+    padding-top: 14px;
+  }
+
   .topbar {
     min-height: 66px;
   }
@@ -651,6 +829,25 @@ input:focus-visible {
 
   .todo-heading-row h1 {
     font-size: 50px;
+  }
+
+  .progress-panel {
+    grid-template-columns: 1fr 105px;
+    gap: 0 10px;
+    padding: 17px 15px;
+  }
+
+  .progress-ring {
+    width: 102px;
+  }
+
+  .progress-ring-center strong {
+    font-size: 34px;
+  }
+
+  .progress-panel-stats {
+    gap: 8px;
+    font-size: 10px;
   }
 
   .remaining-count {
